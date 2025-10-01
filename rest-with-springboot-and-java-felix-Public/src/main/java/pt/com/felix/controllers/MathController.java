@@ -15,12 +15,19 @@ public class MathController {
     ) throws Exception {
 
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new IllegalArgumentException();
-        return  1D;
+        return  convertToDouble(numberOne) + convertToDouble(numberTwo);
     }
 
-    private boolean isNumeric(String numberOne){
-     return false;
+    private boolean isNumeric(String strNumber){
+     if(strNumber == null || strNumber.isEmpty()) throw new IllegalArgumentException();
+     String number = strNumber.replace(",",".");
+        return number.matches("[-+]?[0-9]*\\.?[0-9]+");
+    }
 
+    private Double convertToDouble(String strNumber){
+        if(strNumber == null || strNumber.isEmpty()) throw new IllegalArgumentException();
+        String number = strNumber.replace(",",".");
+        return Double.parseDouble(number);
     }
 
 
