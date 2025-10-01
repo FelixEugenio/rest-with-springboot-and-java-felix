@@ -51,5 +51,41 @@ public class MathController {
         return  convertToDouble(numberOne) * convertToDouble(numberTwo);
     }
 
+    @RequestMapping("/div/{numberOne}/{numberTwo}")
+    public Double Div(
+            @PathVariable("numberOne")   String numberOne,
+            @PathVariable("numberTwo")   String numberTwo
+    ) throws Exception {
+
+        double numberOneConvertedToDouble = convertToDouble(numberOne);
+        double numberTwoConvertedToDouble = convertToDouble(numberTwo);
+
+        if (!isNumberTwoGreaterThanZero(numberTwoConvertedToDouble)) throw new UnsuportedMathOperationException("number two needs to be greater than zero");
+
+        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new UnsuportedMathOperationException("Please enter a numeric value");
+        return  numberOneConvertedToDouble / numberTwoConvertedToDouble;
+    }
+
+    private boolean isNumberTwoGreaterThanZero(Double numberTwo) {
+        return  numberTwo > 0;
+    }
+
+    @RequestMapping("/sqrt/{numberOne}")
+    public Double Sqrt(
+            @PathVariable("numberOne")   String numberOne
+    ) throws Exception {
+
+        double numberConverted = convertToDouble(numberOne);
+        if(isNegativeNumber(numberConverted)) throw new UnsuportedMathOperationException("Please enter with a valid number");
+        double sqrt = Math.sqrt(convertToDouble(numberOne));
+        if(!isNumeric(numberOne)) throw new UnsuportedMathOperationException("Please enter a numeric value");
+        return  sqrt;
+    }
+
+    private boolean isNegativeNumber(Double number){
+        if(number == null) return false ;
+       return number < 0 ;
+    }
+
 
 }
