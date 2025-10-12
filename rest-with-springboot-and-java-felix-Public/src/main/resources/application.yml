@@ -15,7 +15,7 @@ spring:
     open-in-view: false
 logging:
 level:
-  root:
-  pt.com.felix: DEBUG
+  root: WARN
+  #pt.com.felix: DEBUG
 
 
