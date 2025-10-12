@@ -2,6 +2,7 @@ package pt.com.felix.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.com.felix.models.Person;
 import pt.com.felix.services.PersonService;
@@ -73,8 +74,9 @@ public class PersonController {
 
     */
     @DeleteMapping("/person/{id}")
-    public void delete(@PathVariable("id") Long id){
+    public ResponseEntity<?> delete(@PathVariable("id") Long id){
          personService.delete(id);
+         return ResponseEntity.noContent().build();
     }
 
 }

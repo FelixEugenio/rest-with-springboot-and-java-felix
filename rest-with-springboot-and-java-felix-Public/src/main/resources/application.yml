@@ -13,3 +13,9 @@ spring:
       hibernate:
     show-sql: false
     open-in-view: false
+logging:
+level:
+  root:
+  pt.com.felix: DEBUG
+
+
