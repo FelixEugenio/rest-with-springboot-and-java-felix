@@ -86,6 +86,4 @@ public class MathController {
         if(number == null) return false ;
        return number < 0 ;
     }
-
-
 }
