@@ -1,36 +1,19 @@
-package pt.com.felix.models;
-
-import jakarta.persistence.*;
-import pt.com.felix.data.dto.v2.PersonDTOV2;
-
+package pt.com.felix.data.dto.v1;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "person")
-public class Person extends PersonDTOV2 implements Serializable {
+public class PersonDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(name = "first_name",nullable = false,length = 100)
     private String firstName;
-
-    @Column(name = "last_name",nullable = false,length = 100)
     private String lastName;
-
-    @Column(name = "age",nullable = false)
     private int age;
-
-    @Column(nullable = false,length = 10)
     private String gender;
-    @Column(nullable = false,length = 100)
     private String address;
 
-    public Person() {}
+    public PersonDTO() {}
 
     public long getId() {
         return id;
@@ -83,7 +66,7 @@ public class Person extends PersonDTOV2 implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
+        PersonDTO person = (PersonDTO) o;
         return id == person.id && age == person.age && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(gender, person.gender);
     }
 

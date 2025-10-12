@@ -6,7 +6,7 @@ import static pt.com.felix.Mapper.ObjectMapper.parseObject;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.com.felix.data.dto.PersonDTO;
+import pt.com.felix.data.dto.v1.PersonDTO;
 import pt.com.felix.models.Person;
 
 

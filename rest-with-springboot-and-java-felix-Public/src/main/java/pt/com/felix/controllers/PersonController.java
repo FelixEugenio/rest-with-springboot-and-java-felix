@@ -1,14 +1,13 @@
 package pt.com.felix.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pt.com.felix.data.dto.PersonDTO;
+import pt.com.felix.data.dto.v1.PersonDTO;
+import pt.com.felix.data.dto.v2.PersonDTOV2;
 import pt.com.felix.services.PersonService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class PersonController {
@@ -54,6 +53,11 @@ public class PersonController {
    public PersonDTO create(@RequestBody PersonDTO person){
       return personService.create(person);
    }
+
+    @PostMapping("/v2")
+    public PersonDTOV2 create(@RequestBody PersonDTOV2 person){
+        return personService.create(person);
+    }
 
    /*
    @RequestMapping(

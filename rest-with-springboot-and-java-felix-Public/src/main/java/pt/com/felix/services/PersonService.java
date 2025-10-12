@@ -3,13 +3,14 @@ package pt.com.felix.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.com.felix.Mapper.ObjectMapper;
+import pt.com.felix.Mapper.custom.PersonMapper;
+import pt.com.felix.data.dto.v2.PersonDTOV2;
 import pt.com.felix.exceptions.ResourceNotFoundException;
-import pt.com.felix.data.dto.PersonDTO;
+import pt.com.felix.data.dto.v1.PersonDTO;
 import pt.com.felix.models.Person;
 import pt.com.felix.repositories.PersonRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
@@ -19,6 +20,9 @@ public class PersonService {
     @Autowired
     PersonRepository personRepository;
 
+    @Autowired
+     PersonMapper converter;
+
     private AtomicLong counter = new AtomicLong();
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
@@ -27,6 +31,12 @@ public class PersonService {
         logger.info("Creating one person");
         var entity = ObjectMapper.parseObject(person,Person.class);
         return ObjectMapper.parseObject(personRepository.save(entity),PersonDTO.class);
+    }
+
+    public PersonDTOV2 create(PersonDTOV2 person){
+        logger.info("Creating one person");
+        var entity = converter.convertDTOtoEntity(person);
+        return converter.convertEntityToDTO(personRepository.save(entity));
     }
 
     public PersonDTO update(PersonDTO person){

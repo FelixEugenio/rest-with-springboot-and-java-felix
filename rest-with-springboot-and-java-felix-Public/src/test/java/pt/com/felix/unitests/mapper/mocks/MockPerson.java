@@ -1,6 +1,6 @@
 package pt.com.felix.unitests.mapper.mocks;
 
-import pt.com.felix.data.dto.PersonDTO;
+import pt.com.felix.data.dto.v1.PersonDTO;
 import pt.com.felix.models.Person;
 
 import java.util.ArrayList;
