@@ -1,15 +1,33 @@
 package pt.com.felix.models;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "person")
 public class Person implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "first_name",nullable = false,length = 100)
     private String firstName;
+
+    @Column(name = "last_name",nullable = false,length = 100)
     private String lastName;
+
+    @Column(name = "age",nullable = false)
     private int age;
+
+    @Column(nullable = false,length = 10)
     private String gender;
+    @Column(nullable = false,length = 100)
+    private String address;
 
     public Person() {}
 
@@ -51,6 +69,14 @@ public class Person implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
