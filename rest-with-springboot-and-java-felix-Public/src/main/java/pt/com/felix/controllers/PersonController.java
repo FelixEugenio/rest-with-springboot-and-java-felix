@@ -2,12 +2,11 @@ package pt.com.felix.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pt.com.felix.models.Person;
 import pt.com.felix.services.PersonService;
+
+import java.util.List;
 
 @RestController
 public class PersonController {
@@ -24,6 +23,25 @@ public class PersonController {
     )
    public Person findById(@PathVariable("id") String id){
        return personService.findById(id);
+   }
+
+
+   @RequestMapping(
+           value = "/person"
+           ,method = RequestMethod.GET
+           ,produces = MediaType.APPLICATION_JSON_VALUE
+   )
+   public List<Person> findByAll(){
+        return personService.findByAll();
+   }
+
+   @RequestMapping(
+           value = "/person"
+           ,method = RequestMethod.POST
+           ,produces = MediaType.APPLICATION_JSON_VALUE
+   )
+   public Person create(@RequestBody Person person){
+      return personService.create(person);
    }
 
 }

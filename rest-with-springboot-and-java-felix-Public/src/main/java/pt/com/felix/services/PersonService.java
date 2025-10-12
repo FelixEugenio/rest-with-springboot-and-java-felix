@@ -14,13 +14,28 @@ public class PersonService {
     private AtomicLong counter = new AtomicLong();
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
-    public Person findByAll(){
+
+    public Person create(Person person){
+        logger.info("Creating one person");
+        return person;
+    }
+
+    public Person update(Person person){
+        logger.info("Updating one Person");
+        return person;
+    }
+
+    public void delete(String id){
+        logger.info("Deleting one person with id: " + id);
+    }
+
+    public List<Person> findByAll(){
         List<Person> persons = new ArrayList<Person>();
         for(int i = 0; i < 10; i++){
             Person person = mockPerson(i);
             persons.add(person);
         }
-        return (Person) persons;
+        return persons;
     }
 
     public Person findById(String id){
@@ -43,4 +58,6 @@ public class PersonService {
         person.setAge(25);
         return person;
     }
+
+
 }
