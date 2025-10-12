@@ -3,7 +3,7 @@ package pt.com.felix.controllers;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pt.com.felix.exceptions.UnsuportedMathOperationException;
+import pt.com.felix.exceptions.ResourceNotFoundException;
 
 @RestController
 @RequestMapping("/math")
@@ -15,7 +15,7 @@ public class MathController {
             @PathVariable("numberTwo")   String numberTwo
     ) throws Exception {
 
-        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new UnsuportedMathOperationException("Please enter a numeric value");
+        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new ResourceNotFoundException("Please enter a numeric value");
         return  convertToDouble(numberOne) + convertToDouble(numberTwo);
     }
 
@@ -26,7 +26,7 @@ public class MathController {
     }
 
     private Double convertToDouble(String strNumber){
-        if(strNumber == null || strNumber.isEmpty()) throw new UnsuportedMathOperationException("Please enter a numeric value");;
+        if(strNumber == null || strNumber.isEmpty()) throw new ResourceNotFoundException("Please enter a numeric value");;
         String number = strNumber.replace(",",".");
         return Double.parseDouble(number);
     }
@@ -37,7 +37,7 @@ public class MathController {
             @PathVariable("numberTwo")   String numberTwo
     ) throws Exception {
 
-        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new UnsuportedMathOperationException("Please enter a numeric value");
+        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new ResourceNotFoundException("Please enter a numeric value");
         return  convertToDouble(numberOne) - convertToDouble(numberTwo);
     }
 
@@ -47,7 +47,7 @@ public class MathController {
             @PathVariable("numberTwo")   String numberTwo
     ) throws Exception {
 
-        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new UnsuportedMathOperationException("Please enter a numeric value");
+        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new ResourceNotFoundException("Please enter a numeric value");
         return  convertToDouble(numberOne) * convertToDouble(numberTwo);
     }
 
@@ -60,9 +60,9 @@ public class MathController {
         double numberOneConvertedToDouble = convertToDouble(numberOne);
         double numberTwoConvertedToDouble = convertToDouble(numberTwo);
 
-        if (!isNumberTwoGreaterThanZero(numberTwoConvertedToDouble)) throw new UnsuportedMathOperationException("number two needs to be greater than zero");
+        if (!isNumberTwoGreaterThanZero(numberTwoConvertedToDouble)) throw new ResourceNotFoundException("number two needs to be greater than zero");
 
-        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new UnsuportedMathOperationException("Please enter a numeric value");
+        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new ResourceNotFoundException("Please enter a numeric value");
         return  numberOneConvertedToDouble / numberTwoConvertedToDouble;
     }
 
@@ -76,9 +76,9 @@ public class MathController {
     ) throws Exception {
 
         double numberConverted = convertToDouble(numberOne);
-        if(isNegativeNumber(numberConverted)) throw new UnsuportedMathOperationException("Please enter with a valid number");
+        if(isNegativeNumber(numberConverted)) throw new ResourceNotFoundException("Please enter with a valid number");
         double sqrt = Math.sqrt(convertToDouble(numberOne));
-        if(!isNumeric(numberOne)) throw new UnsuportedMathOperationException("Please enter a numeric value");
+        if(!isNumeric(numberOne)) throw new ResourceNotFoundException("Please enter a numeric value");
         return  sqrt;
     }
 

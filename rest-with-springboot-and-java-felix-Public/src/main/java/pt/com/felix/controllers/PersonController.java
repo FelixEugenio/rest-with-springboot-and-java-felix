@@ -17,45 +17,62 @@ public class PersonController {
     // senao colocar o @Service na classe de personService teriamos que escrever o codigo assim
     // private PersonService personService = new PersonService();
 
+    /*
     @RequestMapping(
             value = "/person/{id}"
             ,method = RequestMethod.GET
             ,produces = MediaType.APPLICATION_JSON_VALUE
     )
+     */
+    @GetMapping("/person/{id}")
    public Person findById(@PathVariable("id") Long id){
        return personService.findById(id);
    }
 
+   /*
    @RequestMapping(
            value = "/person"
            ,method = RequestMethod.GET
            ,produces = MediaType.APPLICATION_JSON_VALUE
    )
+
+    */
+    @GetMapping("/person")
    public List<Person> findByAll(){
         return personService.findByAll();
    }
-
+/*
    @RequestMapping(
            value = "/person"
            ,method = RequestMethod.POST
            ,produces = MediaType.APPLICATION_JSON_VALUE
    )
+
+ */
+    @PostMapping("/person")
    public Person create(@RequestBody Person person){
       return personService.create(person);
    }
 
+   /*
    @RequestMapping(
            value = "/person/{id}"
            ,method = RequestMethod.PUT
            ,produces = MediaType.APPLICATION_JSON_VALUE
    )
+    */
+    @PutMapping("/person/{id}")
    public Person update(@RequestBody Person person){
         return personService.update(person);
    }
 
+   /*
     @RequestMapping(
             value = "/person/{id}"
             ,method = RequestMethod.DELETE)
+
+    */
+    @DeleteMapping("/person/{id}")
     public void delete(@PathVariable("id") Long id){
          personService.delete(id);
     }
