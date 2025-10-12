@@ -27,7 +27,7 @@ public class ObjectMapperTests {
         assertEquals("Address Test0", output.getAddress());
         assertEquals("Male", output.getGender());
     }
-/*
+
     @Test
     public void parseEntityListToDTOListTest() {
         List<PersonDTO> outputList = parseListObjects(inputObject.mockEntityList(), PersonDTO.class);
@@ -55,7 +55,7 @@ public class ObjectMapperTests {
         assertEquals("Address Test12", outputTwelve.getAddress());
         assertEquals("Male", outputTwelve.getGender());
     }
-*/
+
     @Test
     public void parseDTOToEntityTest() {
         Person output = parseObject(inputObject.mockDTO(), Person.class);
@@ -65,7 +65,7 @@ public class ObjectMapperTests {
         assertEquals("Address Test0", output.getAddress());
         assertEquals("Male", output.getGender());
     }
-/*
+
     @Test
     public void parserDTOListToEntityListTest() {
         List<Person> outputList = parseListObjects(inputObject.mockDTOList(), Person.class);
@@ -94,5 +94,5 @@ public class ObjectMapperTests {
         assertEquals("Male", outputTwelve.getGender());
     }
 
- */
+
 }

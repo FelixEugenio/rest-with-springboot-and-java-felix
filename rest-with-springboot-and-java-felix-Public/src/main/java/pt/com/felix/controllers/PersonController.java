@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pt.com.felix.models.Person;
+import pt.com.felix.data.dto.PersonDTO;
 import pt.com.felix.services.PersonService;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class PersonController {
     @Autowired
     private PersonService personService;
     // senao colocar o @Service na classe de personService teriamos que escrever o codigo assim
-    // private PersonService personService = new PersonService();
+    // private PersonDTOService personService = new PersonDTOService();
 
     /*
     @RequestMapping(
@@ -26,7 +26,7 @@ public class PersonController {
     )
      */
     @GetMapping("/person/{id}")
-   public Person findById(@PathVariable("id") Long id){
+   public PersonDTO findById(@PathVariable("id") Long id){
        return personService.findById(id);
    }
 
@@ -39,7 +39,7 @@ public class PersonController {
 
     */
     @GetMapping("/person")
-   public List<Person> findByAll(){
+   public List<PersonDTO> findByAll(){
         return personService.findByAll();
    }
 /*
@@ -51,7 +51,7 @@ public class PersonController {
 
  */
     @PostMapping("/person")
-   public Person create(@RequestBody Person person){
+   public PersonDTO create(@RequestBody PersonDTO person){
       return personService.create(person);
    }
 
@@ -63,7 +63,7 @@ public class PersonController {
    )
     */
     @PutMapping("/person/{id}")
-   public Person update(@RequestBody Person person){
+   public PersonDTO update(@RequestBody PersonDTO person){
         return personService.update(person);
    }
 

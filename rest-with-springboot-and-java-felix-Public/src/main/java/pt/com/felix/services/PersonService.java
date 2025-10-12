@@ -2,7 +2,9 @@ package pt.com.felix.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.com.felix.Mapper.ObjectMapper;
 import pt.com.felix.exceptions.ResourceNotFoundException;
+import pt.com.felix.data.dto.PersonDTO;
 import pt.com.felix.models.Person;
 import pt.com.felix.repositories.PersonRepository;
 
@@ -21,13 +23,14 @@ public class PersonService {
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
 
-    public Person create(Person person){
+    public PersonDTO create(PersonDTO person){
         logger.info("Creating one person");
-        return personRepository.save(person);
+        var entity = ObjectMapper.parseObject(person,Person.class);
+        return ObjectMapper.parseObject(personRepository.save(entity),PersonDTO.class);
     }
 
-    public Person update(Person person){
-        logger.info("Updating one Person");
+    public PersonDTO update(PersonDTO person){
+        logger.info("Updating one PersonDTO");
       Person entity =  personRepository.findById(person.getId()).orElseThrow(()-> new ResourceNotFoundException("No records found for this id"));
 
       entity.setFirstName(person.getFirstName());
@@ -36,7 +39,7 @@ public class PersonService {
       entity.setGender(person.getGender());
       entity.setAddress(person.getAddress());
 
-        return personRepository.save(person);
+        return ObjectMapper.parseObject(personRepository.save(entity),PersonDTO.class);
     }
 
     public void delete(Long id){
@@ -45,23 +48,23 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
-    public List<Person> findByAll(){
+    public List<PersonDTO> findByAll(){
         logger.info("FindAll:");
         /*
-        List<Person> persons = new ArrayList<Person>();
+        List<PersonDTO> persons = new ArrayList<PersonDTO>();
         for(int i = 0; i < 10; i++){
-            Person person = mockPerson(i);
+            PersonDTO person = mockPersonDTO(i);
             persons.add(person);
         }
         return persons;
          */
-        return personRepository.findAll();
+        return ObjectMapper.parseListObjects(personRepository.findAll(),PersonDTO.class);
     }
 
-    public Person findById(Long id) {
+    public PersonDTO findById(Long id) {
         logger.info("Finding person with id: " + id);
 /*
-     Person person = new Person();
+     PersonDTO person = new PersonDTO();
      person.setId(counter.incrementAndGet());
      person.setFirstName("Felix");
      person.setLastName("Felipe");
@@ -71,10 +74,11 @@ public class PersonService {
     }
 
  */
-        return personRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("No records found for this id"));
+              var entity =  personRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("No records found for this id"));
+              return ObjectMapper.parseObject(entity,PersonDTO.class);
     }
-    private Person mockPerson(int i){
-        Person person = new Person();
+    private PersonDTO mockPersonDTO(int i){
+        PersonDTO person = new PersonDTO();
         person.setId(counter.incrementAndGet());
         person.setFirstName("Felix");
         person.setLastName("Felipe");
