@@ -1,1 +1,15 @@
-spring.application.name=rest-with-springboot-and-java-felix-Public
+spring:
+  application:
+    name: rest-with-springboot-and-java-felix-Public
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/persondb?useTimezone=true&serverTimezone=UTC
+    username: root
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+    show-sql: false
+    open-in-view: false
