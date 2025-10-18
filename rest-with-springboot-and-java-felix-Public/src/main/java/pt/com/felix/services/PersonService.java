@@ -1,9 +1,14 @@
 package pt.com.felix.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import static  org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 import pt.com.felix.Mapper.ObjectMapper;
 import pt.com.felix.Mapper.custom.PersonMapper;
+import pt.com.felix.controllers.PersonController;
 import pt.com.felix.data.dto.v2.PersonDTOV2;
 import pt.com.felix.exceptions.ResourceNotFoundException;
 import pt.com.felix.data.dto.v1.PersonDTO;
@@ -85,8 +90,19 @@ public class PersonService {
 
  */
               var entity =  personRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("No records found for this id"));
-              return ObjectMapper.parseObject(entity,PersonDTO.class);
+              var dto = ObjectMapper.parseObject(entity,PersonDTO.class);
+        addHateOsLinks(id, dto);
+        return dto;
     }
+
+    private static void addHateOsLinks(Long id, PersonDTO dto) {
+        dto.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel().withType("GET"));
+        dto.add(linkTo(methodOn(PersonController.class).delete(id)).withRel("delete").withType("DELETE"));
+        dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("update").withType("PUT"));
+        dto.add(linkTo(methodOn(PersonController.class).findByAll()).withRel("findAll").withType("GET"));
+        dto.add(linkTo(methodOn(PersonController.class).create(dto)).withRel("create").withType("POST"));
+    }
+
     private PersonDTO mockPersonDTO(int i){
         PersonDTO person = new PersonDTO();
         person.setId(counter.incrementAndGet());
@@ -95,6 +111,4 @@ public class PersonService {
         person.setAge(25);
         return person;
     }
-
-
 }

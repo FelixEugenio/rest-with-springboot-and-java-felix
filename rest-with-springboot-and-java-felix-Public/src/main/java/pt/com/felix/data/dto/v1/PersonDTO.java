@@ -2,12 +2,13 @@ package pt.com.felix.data.dto.v1;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @JsonPropertyOrder({"id", "first_Name", "last_Name", "age", "gender", "address"})
-public class PersonDTO implements Serializable {
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable { // implementando hateos
 
     private static final long serialVersionUID = 1L;
 
