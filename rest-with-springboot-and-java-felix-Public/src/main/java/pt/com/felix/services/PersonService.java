@@ -35,7 +35,9 @@ public class PersonService {
     public PersonDTO create(PersonDTO person){
         logger.info("Creating one person");
         var entity = ObjectMapper.parseObject(person,Person.class);
-        return ObjectMapper.parseObject(personRepository.save(entity),PersonDTO.class);
+        var dto = ObjectMapper.parseObject(personRepository.save(entity),PersonDTO.class);
+        addHateOsLinks(dto.getId(), dto);
+        return dto;
     }
 
     public PersonDTOV2 create(PersonDTOV2 person){
